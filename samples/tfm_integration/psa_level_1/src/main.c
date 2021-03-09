@@ -6,7 +6,7 @@
 
 #include <zephyr.h>
 #include <logging/log_ctrl.h>
-#include <logging/log.h>
+#include <logging/log.h> 
 
 #include "tfm_ns_interface.h"
 #include "psa_attestation.h"
@@ -14,6 +14,7 @@
 #include "util_app_cfg.h"
 #include "util_app_log.h"
 #include "util_sformat.h"
+#include "nsp_partitions.h"
 
 /** Declare a reference to the application logging interface. */
 LOG_MODULE_DECLARE(app, CONFIG_LOG_DEFAULT_LEVEL);
@@ -40,6 +41,9 @@ void main(void)
 	/* Crypto tests */
 	crp_test_rng();
 	crp_test_sha256();
+
+	/* NSP tests */
+	nsp_create_partition(0);
 
 	/* Dump any queued log messages, and wait for system events. */
 	while (1) {

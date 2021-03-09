@@ -210,6 +210,16 @@ void main(void)
 	tfm_ipc_test_1004();
 	tfm_ipc_test_1005();
 	tfm_ipc_test_1006();
+	
+	// checking on which CPU we are running
+
+	volatile uint32_t cpu_ident;
+
+	__asm volatile(
+		"mov     r0, #0x40000000\n"
+		"add     r0, #0x0001F000\n"
+		"ldr     %[result], [r0]\n" : [result] "=r" (cpu_ident) 
+	);
 
 	printk("TF-M IPC on %s\n", CONFIG_BOARD);
 }
